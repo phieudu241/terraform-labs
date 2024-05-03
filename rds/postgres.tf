@@ -18,8 +18,8 @@ data "aws_vpc" "default" {
 }
 
 resource "aws_security_group" "security_group" {
-  vpc_id      = "${data.aws_vpc.default.id}"
-  name        = "terraform-sg-postgres"
+  vpc_id      = data.aws_vpc.default.id
+  name        = "${var.db_identifier}-sg-postgres"
   description = "Allow all inbound for Postgres"
   ingress {
     from_port   = 5432

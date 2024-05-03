@@ -7,6 +7,6 @@ resource "aws_route_table" "Terraform-RT" {
     gateway_id = aws_internet_gateway.Terraform-IG.id
   }
   tags = {
-    Name = "terraform-RT"
+    Name = "${var.project_name}-RT"
   }
 }

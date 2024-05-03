@@ -7,6 +7,6 @@ resource "aws_subnet" "subnet1" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "terraform-Subnet1"
+    Name = "${var.project_name}-subnet"
   }
 }

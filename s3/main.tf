@@ -13,12 +13,16 @@ provider "aws" {
   profile = "default"
 }
 
+variable "project_name" {
+  type = string
+}
+
 resource "aws_s3_bucket" "my_project" {
-  bucket = "terraform-bucket-dunglq"
+  bucket = "${var.project_name}-bucket"
 
   tags = {
-    Name        = "terraform bucket"
-    Environment = "Dev"
+    Name        = var.project_name
+    Environment = "dev"
   }
 }
 

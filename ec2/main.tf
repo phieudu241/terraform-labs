@@ -14,17 +14,22 @@ provider "aws" {
   profile = "default"
 }
 
+variable "project_name" {
+  type = string
+}
+
 variable "INSTALL_DEPENDENCIES" {
-  default   = "./install-dependencies/docker.sh"
-  type      = string
+  default = "./install-dependencies/nodejs-app.sh"
+  type    = string
 }
 
 variable "PEM_FILE" {
-  default   = "terraform"
+  default   = var.project_name
   type      = string
   sensitive = true
 }
 
+# EC2
 resource "aws_instance" "example_server" {
   ami = "ami-0db548937a54fa3a7" // ubuntu-focal-20.04, x86_64, storage-8g-gp2
   instance_type          = "t2.micro"
@@ -34,7 +39,7 @@ resource "aws_instance" "example_server" {
   user_data              = filebase64(var.INSTALL_DEPENDENCIES)
 
   tags = {
-    Name = "terraform"
+    Name = var.project_name
   }
 }
 
